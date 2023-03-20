@@ -1,11 +1,12 @@
-package com.example.randonphrasesaristidevs.view
+package com.example.randonphrasesaristidevs.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.randonphrasesaristidevs.databinding.ActivityMainBinding
-import com.example.randonphrasesaristidevs.viewmodel.QuoteViewModel
+import com.example.randonphrasesaristidevs.ui.viewmodel.QuoteViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         quoteViewModel.quoteModel.observe(this, Observer { currentQuote ->
             binding.tvQuote.text = currentQuote.quote
             binding.tvAuthor.text = currentQuote.author
+        })
+        quoteViewModel.isLoading.observe(this, Observer {
+            binding.loading.isVisible = it
         })
 
         binding.viewContainer.setOnClickListener { quoteViewModel.randomQuote() }
